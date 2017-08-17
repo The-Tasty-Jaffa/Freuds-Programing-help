@@ -14,18 +14,18 @@ class Hunt:
         self.settings = dataIO.load_json("data/Tasty/Hunt/settings.json")
         set_up_commands()
 
-    def Default_responce_Command(self, ctx):
+    def Default_response_Command(self, ctx):
         msg = ctx.message.content
         del msg[0]
-        if msg != self.awnsers[-1]:
+        if msg != self.answers[-1]:
             await self.bot.send_message(ctx.message.channel, self.riddles[self.answers.index(msg)])
-        elif msg == self.awnsers[-1]: #If they Get the finial Command will add "puzzle hunter" role
-            await self.bot.add_roles(ctx.message.author, discord.utils.get(ctx.message.server.roles, name="Puzzle Hunter"))
+        elif msg == self.answers[-1]: #If they Get the final Command will add "Puzzle King/Queen" role
+            await self.bot.add_roles(ctx.message.author, discord.utils.get(ctx.message.server.roles, name="Puzzle King/Queen"))
             await self.bot.send_message(ctx.message.channel, self.riddles[-1])
             
     def set_up_commands(self):
         for x in self.answers:
-            self.bot.add_command(name=x, callback=Defualt_responce_Command, pass_context=True, hidden=True)
+            self.bot.add_command(name=x, callback=Default_response_Command, pass_context=True, hidden=True)
     
     @commands.command(pass_context=True, no_pm=True)
     async def hunt(self, ctx):
