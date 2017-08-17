@@ -1,0 +1,9 @@
+{
+    "AUTHOR" : "The Tasty Jaffa",
+    "INSTALL_MSG" : "Asks questions and has people awsner them",
+    "NAME" : "Hunt",
+    "SHORT" : "What even is the point of this Freud?",
+    "DESCRIPTION" : "This cog - Asks some questions",
+    "TAGS" : ["utility", "quiz"],
+    "HIDDEN" : false
+}
