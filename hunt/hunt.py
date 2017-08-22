@@ -12,7 +12,7 @@ class Hunt:
         self.answers = dataIO.load_json("data/Tasty/Hunt/answers.json")
         self.riddles = dataIO.load_json("data/Tasty/Hunt/riddles.json")
         self.settings = dataIO.load_json("data/Tasty/Hunt/settings.json")
-        set_up_commands()
+        #self.set_up_commands()
 
     #def Default_response_Command(self, ctx):
      #   msg = ctx.message.content
