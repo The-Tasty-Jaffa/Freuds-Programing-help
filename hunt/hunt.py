@@ -16,25 +16,27 @@ class Hunt:
     
     @commands.command(pass_context=True, no_pm=True)
     async def hunt(self, ctx):
+        
         server = ctx.message.server
         member = ctx.message.author
         score = 0
         role = discord.utils.get(server.roles, name="Puzzle Hunter")
+
+        await self.bot.delete_message(ctx.message)
 
         await self.bot.send_message(ctx.message.author, "Welcome {} to the treasure hunt! Can you find the final hidden command and claim your reward? \nEach riddle will get harder and harder so good luck!\n**Write the answer to the riddles as a command in any channel (-[answer])**".format(ctx.message.author.mention))
         await self.bot.add_roles(member, role)
         
         for index, question in enumerate(self.riddles):
             await self.bot.send_message(member, question)
-            msg = await self.bot.wait_for_message(author=ctx.message.author)
+            msg = await self.bot.wait_for_message(author=ctx.message.author, content="-"+self.answers[index])
             if isinstance(msg.channel.type, type(discord.ChannelType.private)):
                 pass
             else:
                 await self.bot.delete_message(msg)
+                
+            score += 1
 
-            if msg.content[1:-1] == self.answers[index]:
-                score += 1
-                await self.bot.delete_message(ctx.message)
 	   
         if score >= 10:
           role = discord.utils.get(server.roles, name="Puzzle King/Queen")
@@ -102,3 +104,4 @@ def setup(bot):
     check_folders()
     check_files()
     bot.add_cog(Hunt(bot))
+
