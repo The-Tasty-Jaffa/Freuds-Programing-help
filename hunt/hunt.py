@@ -59,6 +59,7 @@ class Hunt:
         for user in set(self.bot.get_all_members()):
             self.scores[user.id] = 0
         
+        dataIO.save_json("data/Tasty/Hunt/score.json", self.scores)
         await self.bot.say("Done! reset all")
 
     @commands.command(name="huntscore", pass_context=True)
@@ -70,6 +71,7 @@ class Hunt:
     async def hunt_score_set(self,ctx, member: discord.User, score):
         try:
             self.scores[member.id] = int(score)+1
+            dataIO.save_json("data/Tasty/Hunt/score.json", self.scores)
             await self.bot.say("Done!")
         except:
             await self.bot.say("An error occurred, Does that person exist? Is that score Valid?")
