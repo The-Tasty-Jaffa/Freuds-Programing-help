@@ -65,7 +65,7 @@ class Hunt:
     async def hunt_score(self, ctx, member: discord.User):
         await self.bot.say("{}s' score is {}".format(member.name, self.scores[member.id]-1))
 
-    @commands.command(name="huntscoreset", pass_context=True)
+    @commands.command(name="huntsetscore", pass_context=True)
     @checks.is_owner()
     async def hunt_score_set(self,ctx, member: discord.User, score):
         try:
