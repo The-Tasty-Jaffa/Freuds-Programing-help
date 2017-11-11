@@ -68,7 +68,6 @@ class Hunt:
     @commands.command(name="huntscoreset", pass_context=True)
     @checks.is_owner()
     async def hunt_score_set(self,ctx, member: discord.user, score):
-        await self.bot.say("If this person does not exist someone else with that id will end up with that score")
         try:
             self.scores[member.id] = int(score)+1
             await self.bot.say("Done!")
