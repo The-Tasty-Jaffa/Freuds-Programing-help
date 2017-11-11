@@ -41,35 +41,6 @@ class Hunt:
 
         dataIO.save_json("data/Tasty/Hunt/score.json", self.scores)
 
-    """
-    async def hunt(self, ctx):
-        
-        server = ctx.message.server
-        member = ctx.message.author
-        score = 0
-        role = discord.utils.get(server.roles, name="Puzzle Hunter")
-
-        await self.bot.delete_message(ctx.message)
-
-        await self.bot.send_message(ctx.message.author, "Welcome {} to the treasure hunt! Can you find the final hidden command and claim your reward? \nEach riddle will get harder and harder so good luck!\n**Write the answer to the riddles as a command in any channel (-[answer])**".format(ctx.message.author.mention))
-        await self.bot.add_roles(member, role)
-        
-        for index, question in enumerate(self.riddles):
-            await asyncio.sleep(1)
-            await self.bot.send_message(member, question)
-            msg = await self.bot.wait_for_message(author=ctx.message.author, content="-"+self.answers[index])
-
-            if not isinstance(msg.channel.type, type(discord.ChannelType.private)):
-                await self.bot.delete_message(msg)
-                
-            score += 1
-
-	   
-        if score >= 10:
-          role = discord.utils.get(server.roles, name="Puzzle King/Queen")
-          await self.bot.add_roles(member, role)
-    """
-
     @commands.command(name="huntlist", pass_context=True)
     async def hunt_all_users_list(self,ctx):
         user_score_list = []
@@ -90,15 +61,19 @@ class Hunt:
         
         await self.bot.say("Done! reset all")
 
+    @commands.command(name="huntscore", pass_context=True)
+    async def hunt_score(self, ctx, member: discord.User):
+        await self.bot.say("{}s' score is {}".format(member.name, self.scores[member.id]-1))
+
     @commands.command(name="huntscoreset", pass_context=True)
     @checks.is_owner()
-    async def hunt_score_set(self,ctx, member_id, score):
+    async def hunt_score_set(self,ctx, member: discord.user, score):
         await self.bot.say("If this person does not exist someone else with that id will end up with that score")
         try:
-            self.scores[member_id] = int(score)+1
+            self.scores[member.id] = int(score)+1
             await self.bot.say("Done!")
         except:
-            await self.bot.say("Set!")
+            await self.bot.say("An error occurred, Does that person exist? Is that score Valid?")
 
     @checks.is_owner()
     @commands.command(hidden=True, pass_context=True)
