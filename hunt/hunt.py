@@ -67,7 +67,7 @@ class Hunt:
 
     @commands.command(name="huntscoreset", pass_context=True)
     @checks.is_owner()
-    async def hunt_score_set(self,ctx, member: discord.user, score):
+    async def hunt_score_set(self,ctx, member: discord.User, score):
         try:
             self.scores[member.id] = int(score)+1
             await self.bot.say("Done!")
